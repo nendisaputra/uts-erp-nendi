@@ -1,0 +1,18 @@
+flowchart TB
+  subgraph UI["Modul ERP (satu antarmuka)"]
+    PJ["Penjualan<br/>Sales Order"]
+    GD["Gudang<br/>Stok & Goods Receipt"]
+    PR["Produksi<br/>BOM & Work Order"]
+    KU["Keuangan<br/>Jurnal & Piutang/Utang"]
+  end
+  DB[("DATABASE ERP TERPUSAT<br/>Data master bersama: Pelanggan · Barang · BOM · Gudang · Pemasok · Akun (CoA)")]
+  PJ <--> DB
+  GD <--> DB
+  PR <--> DB
+  KU <--> DB
+  DB -- "stok kurang → otomatis" --> PUR["Pembelian<br/>Purchase Requisition / PO"]
+  PUR --> DB
+  classDef ok fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d;
+  classDef core fill:#dbeafe,stroke:#2563eb,stroke-width:3px,color:#1e3a8a;
+  class PJ,GD,PR,KU,PUR ok;
+  class DB core;

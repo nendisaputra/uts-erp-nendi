@@ -1,0 +1,24 @@
+flowchart LR
+  subgraph PJ["PENJUALAN"]
+    A["Spreadsheet pesanan<br/>(data terlambat diperbarui)"]
+  end
+  subgraph GD["GUDANG"]
+    B["Aplikasi stok<br/>(stok ≠ catatan pembelian)"]
+  end
+  subgraph PR["PRODUKSI"]
+    C["Formulir manual<br/>(jadwal sering berubah)"]
+  end
+  subgraph KU["KEUANGAN"]
+    D["Aplikasi akuntansi<br/>(transaksi diinput ulang)"]
+  end
+  A -. "salin manual / chat" .-> B
+  A -. "telepon / kertas" .-> C
+  B -. "nota fisik" .-> D
+  C -. "laporan manual" .-> B
+  A -. "diketik ulang" .-> D
+  classDef bad fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+  class A,B,C,D bad;
+  style PJ fill:#fff7ed,stroke:#fb923c
+  style GD fill:#fff7ed,stroke:#fb923c
+  style PR fill:#fff7ed,stroke:#fb923c
+  style KU fill:#fff7ed,stroke:#fb923c

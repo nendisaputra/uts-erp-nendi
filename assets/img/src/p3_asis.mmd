@@ -1,0 +1,18 @@
+flowchart TB
+  A1["1. Dosen mengajukan permintaan bahan<br/>(chat WhatsApp / lisan)"] --> A2["2. Kepala Lab memverifikasi kebutuhan<br/>(perkiraan pribadi)"]
+  A2 --> A3["3. Gudang memeriksa stok<br/>(hitung manual, tidak real-time)"]
+  A3 --> A4["4. Bagian Pembelian memilih pemasok<br/>(telepon / chat, tanpa pembanding)"]
+  A4 --> A5["5. Pimpinan memberi persetujuan<br/>(tanda tangan / pesan singkat)"]
+  A5 --> A6["6. Gudang menerima barang<br/>(surat jalan kertas)"]
+  A6 --> A7["7. Keuangan memproses pembayaran<br/>(foto surat jalan di chat)"]
+  R1["RISIKO: permintaan tenggelam,<br/>tidak ada identitas & jejak"] -.-> A1
+  R2["RISIKO: keputusan subjektif"] -.-> A2
+  R3["RISIKO: stok salah → beli ganda /<br/>kekurangan tak terdeteksi"] -.-> A3
+  R4["RISIKO: harga tak dibandingkan,<br/>pemasok tidak terkontrol"] -.-> A4
+  R5["RISIKO: persetujuan lambat / tanpa<br/>bukti, nilai berubah tak terpantau"] -.-> A5
+  R6["RISIKO: barang diterima tanpa<br/>nomor PO"] -.-> A6
+  R7["RISIKO: bayar ganda / tanpa dokumen"] -.-> A7
+  classDef step fill:#f1f5f9,stroke:#64748b,color:#0f172a;
+  classDef risk fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+  class A1,A2,A3,A4,A5,A6,A7 step;
+  class R1,R2,R3,R4,R5,R6,R7 risk;

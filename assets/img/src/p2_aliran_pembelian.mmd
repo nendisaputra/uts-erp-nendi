@@ -1,0 +1,21 @@
+sequenceDiagram
+  autonumber
+  actor U as Staf Pembelian
+  participant B as Browser ERP
+  participant S as Server Aplikasi
+  participant DB as Database
+  participant G as Gudang
+  participant K as Keuangan
+  U->>B: Login & buka menu Pembelian
+  B->>S: Kirim kredensial (HTTPS)
+  S->>DB: Cek akun & hak akses (RBAC)
+  DB-->>S: Peran = Staf Pembelian
+  U->>B: Isi PR / PO (pemasok, barang, jumlah, harga)
+  B->>S: Kirim data PO
+  S->>S: Validasi data & batas persetujuan (> Rp 5 jt → Pimpinan)
+  S->>DB: Simpan PO + audit log
+  G->>S: Input Goods Receipt terhadap nomor PO
+  S->>DB: Tambah stok + jurnal Dr Persediaan / Cr Utang Usaha
+  K->>S: Cocokkan PO – GR – Faktur (three-way match)
+  S->>DB: Tandai siap bayar + catat audit
+  S-->>B: Konfirmasi transaksi

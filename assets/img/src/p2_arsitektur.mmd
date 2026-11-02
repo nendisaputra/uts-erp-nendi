@@ -1,0 +1,33 @@
+flowchart TB
+  subgraph USR["Lapisan Pengguna — 100 pengguna"]
+    U1["Penjualan"] ~~~ U2["Gudang"] ~~~ U3["Produksi"] ~~~ U4["Pembelian"] ~~~ U5["Keuangan"]
+  end
+  UI["Antarmuka aplikasi: browser web ERP (HTTPS)"]
+  FW["Firewall + Reverse Proxy / Load Balancer<br/>TLS, VPN + MFA untuk akses luar kantor"]
+  subgraph APP["Lapisan Aplikasi"]
+    A1["Server Aplikasi ERP 1 (aktif)<br/>login · RBAC · logika bisnis"]
+    A2["Server Aplikasi ERP 2 (standby)"]
+  end
+  subgraph DBL["Lapisan Data"]
+    D1[("Database Utama<br/>RAID 10")]
+    D2[("Database Replika<br/>(standby)")]
+  end
+  subgraph BKP["Sistem Pencadangan 3-2-1"]
+    B1["NAS lokal<br/>full mingguan + diff harian + log 15 menit"]
+    B2["Cloud terenkripsi<br/>(di luar lokasi)"]
+  end
+  USR --> UI --> FW
+  FW --> A1
+  FW -.-> A2
+  A1 --> D1
+  A2 -.-> D1
+  D1 == "replikasi" ==> D2
+  D1 --> B1 --> B2
+  classDef u fill:#e0e7ff,stroke:#4f46e5;
+  classDef a fill:#fef3c7,stroke:#d97706;
+  classDef d fill:#dcfce7,stroke:#16a34a;
+  classDef b fill:#fce7f3,stroke:#db2777;
+  class U1,U2,U3,U4,U5,UI u;
+  class A1,A2,FW a;
+  class D1,D2 d;
+  class B1,B2 b;

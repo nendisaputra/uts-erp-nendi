@@ -1,0 +1,15 @@
+flowchart TD
+  S["1. Pesanan pelanggan masuk<br/>(Sales Order)"] --> C{"Stok barang jadi cukup?"}
+  C -- "Ya" --> K["Reservasi stok → kirim → jurnal piutang"]
+  C -- "Tidak" --> W["2. Production Order<br/>(kekurangan = pesanan − stok)"]
+  W --> B["3. BOM explosion<br/>kebutuhan bahan"]
+  B --> M{"Stok bahan cukup?"}
+  M -- "Ya" --> P["Produksi berjalan"]
+  M -- "Tidak" --> R["4. Purchase Requisition otomatis"]
+  R --> G["Bahan diterima → stok bertambah"]
+  G --> P
+  P --> D["5. Kirim barang (DO) → stok barang jadi berkurang"]
+  K --> J
+  D --> J["6. Jurnal otomatis:<br/>Dr Piutang / Cr Penjualan"]
+  classDef n fill:#e0e7ff,stroke:#4f46e5,color:#1e1b4b;
+  class S,W,B,R,G,P,D,K,J n;
